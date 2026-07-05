@@ -1,14 +1,16 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Download, FileText, Clock, Cpu, Filter } from 'lucide-react';
+import { ArrowLeft, Download, FileText, Clock, Cpu, Filter, Bot, MessageCircle } from 'lucide-react';
 import { useAppStore } from '@/store/appStore';
 import RiskScoreCard from '@/components/analysis/RiskScoreCard';
 import ClauseCard from '@/components/analysis/ClauseCard';
 import DisclaimerBanner from '@/components/ui/DisclaimerBanner';
+import ChatPanel from '@/components/analysis/ChatPanel';
 import { generatePDFReport } from '@/lib/reportGenerator';
 import { formatDate, formatFileSize } from '@/lib/utils';
 import { RISK_LEVEL_CONFIG, type RiskLevel } from '@/types';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
+import { useAgent } from '@/hooks/useAgent';
 import toast from 'react-hot-toast';
 
 const RISK_FILTER_OPTIONS: Array<{ value: 'all' | RiskLevel; label: string }> = [
@@ -29,6 +31,9 @@ export default function ResultPage() {
   const result = currentAnalysis?.id === id
     ? currentAnalysis
     : history.find((h) => h.id === id);
+
+  // AI Agent hook — aman dipanggil sebelum early return
+  const { isOpen, openChat } = useAgent(result ?? null);
 
   if (!result) {
     return (
@@ -64,6 +69,7 @@ export default function ResultPage() {
   }));
 
   return (
+    <>
     <div className="p-6 md:p-8 max-w-4xl mx-auto space-y-6">
       {/* Back + Actions */}
       <div className="flex items-center justify-between flex-wrap gap-3">
@@ -74,10 +80,22 @@ export default function ResultPage() {
           <ArrowLeft className="w-4 h-4" />
           Kembali
         </button>
-        <button onClick={handleExportPDF} className="btn-secondary gap-2 text-sm">
-          <Download className="w-4 h-4" />
-          Unduh Laporan PDF
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={openChat}
+            className={cn(
+              'btn gap-2 text-sm',
+              isOpen ? 'btn-primary' : 'btn-secondary',
+            )}
+          >
+            {isOpen ? <MessageCircle className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
+            Tanya AI Agent
+          </button>
+          <button onClick={handleExportPDF} className="btn-secondary gap-2 text-sm">
+            <Download className="w-4 h-4" />
+            Unduh PDF
+          </button>
+        </div>
       </div>
 
       {/* Doc info */}
@@ -187,5 +205,21 @@ export default function ResultPage() {
 
       <DisclaimerBanner />
     </div>
+
+    {/* AI Agent Chat Panel — floating */}
+    <ChatPanel analysis={result} />
+
+    {/* FAB button untuk mobile (selalu tampil saat chat tutup) */}
+    {!isOpen && (
+      <button
+        onClick={openChat}
+        className="fixed bottom-6 right-6 z-40 flex items-center gap-2 bg-brand-600 text-white px-4 py-3 rounded-full shadow-lg hover:bg-brand-700 transition-all active:scale-95 md:hidden"
+        aria-label="Buka AI Agent"
+      >
+        <Bot className="w-5 h-5" />
+        <span className="text-sm font-semibold">Tanya AI</span>
+      </button>
+    )}
+    </>
   );
 }

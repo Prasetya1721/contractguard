@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
-import { Shield, LayoutDashboard, Upload, History, LogOut, Menu, X, ChevronRight } from 'lucide-react';
+import { Shield, LayoutDashboard, Upload, History, LogOut, Menu, X, ChevronRight, Bot } from 'lucide-react';
 import { useAppStore } from '@/store/appStore';
 import { cn } from '@/lib/utils';
 import toast from 'react-hot-toast';
@@ -73,6 +73,17 @@ export default function Layout() {
             </Link>
           ))}
         </nav>
+
+        {/* AI Agent promo badge */}
+        <div className="mx-3 mb-2 px-3 py-2.5 bg-brand-800 rounded-lg border border-brand-700">
+          <div className="flex items-center gap-2 mb-1">
+            <Bot className="w-3.5 h-3.5 text-brand-300" />
+            <span className="text-xs font-semibold text-brand-200">AI Agent Aktif</span>
+          </div>
+          <p className="text-[11px] text-brand-400 leading-tight">
+            Buka hasil analisis dan klik "Tanya AI" untuk konsultasi kontrak.
+          </p>
+        </div>
 
         {/* User info */}
         <div className="px-3 py-4 border-t border-brand-800">
