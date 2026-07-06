@@ -46,7 +46,7 @@ export default function ChatBubble({ message, onSuggestionClick }: ChatBubblePro
       <div
         className={cn(
           'w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5',
-          isAgent ? 'bg-brand-600 text-white' : 'bg-gray-200 text-gray-700',
+          isAgent ? 'bg-brand-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200',
         )}
       >
         {isAgent ? 'AI' : 'U'}
@@ -59,7 +59,7 @@ export default function ChatBubble({ message, onSuggestionClick }: ChatBubblePro
           className={cn(
             'px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed',
             isAgent
-              ? 'bg-white border border-gray-200 text-gray-800 rounded-tl-sm shadow-sm'
+              ? 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-tl-sm shadow-sm'
               : 'bg-brand-600 text-white rounded-tr-sm',
           )}
         >
@@ -89,7 +89,7 @@ export default function ChatBubble({ message, onSuggestionClick }: ChatBubblePro
         </div>
 
         {/* Waktu */}
-        <span className="text-[10px] text-gray-400 px-1">
+        <span className="text-[10px] text-gray-400 dark:text-gray-500 px-1">
           {new Date(message.timestamp).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
         </span>
 
@@ -100,7 +100,7 @@ export default function ChatBubble({ message, onSuggestionClick }: ChatBubblePro
               <button
                 key={s}
                 onClick={() => onSuggestionClick?.(s)}
-                className="text-xs px-2.5 py-1 bg-brand-50 text-brand-700 border border-brand-200 rounded-full hover:bg-brand-100 transition-colors"
+                className="text-xs px-2.5 py-1 bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-700 rounded-full hover:bg-brand-100 dark:hover:bg-brand-900/50 transition-colors"
               >
                 {s}
               </button>

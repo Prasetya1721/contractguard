@@ -4,6 +4,7 @@ import { useAppStore } from '@/store/appStore';
 import { cn } from '@/lib/utils';
 import { useTranslation } from '@/hooks/useTranslation';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
+import DarkModeToggle from '@/components/ui/DarkModeToggle';
 import toast from 'react-hot-toast';
 
 export default function Layout() {
@@ -28,7 +29,7 @@ export default function Layout() {
     exact ? location.pathname === to : location.pathname.startsWith(to);
 
   return (
-    <div className="flex h-screen bg-gray-50 overflow-hidden">
+    <div className="flex h-screen bg-gray-50 dark:bg-gray-950 overflow-hidden">
       {/* Sidebar backdrop (mobile) */}
       {sidebarOpen && (
         <div
@@ -110,24 +111,23 @@ export default function Layout() {
       {/* ── Main content ─────────────────────────────────────────────────────── */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Top bar */}
-        <header className="flex items-center gap-4 px-6 py-3 bg-white border-b border-gray-200 lg:px-8">
+        <header className="flex items-center gap-3 px-6 py-3 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700/60 lg:px-8">
           <button
-            className="lg:hidden p-1 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+            className="lg:hidden p-1 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
             onClick={toggleSidebar}
           >
             <Menu className="w-5 h-5" />
           </button>
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-gray-500 dark:text-gray-400">
             {t.nav.plan}:{' '}
-            <span className="font-semibold text-brand-600 capitalize">{user?.plan ?? 'free'}</span>
+            <span className="font-semibold text-brand-500 capitalize">{user?.plan ?? 'free'}</span>
           </div>
-          <div className="ml-auto flex items-center gap-4">
-            {/* Language Switcher */}
+          <div className="ml-auto flex items-center gap-2">
+            <DarkModeToggle />
             <LanguageSwitcher />
-            {/* Quota */}
             {user && (
-              <span className="text-sm text-gray-500">
-                <span className="font-medium text-gray-700">{user.analysisCount}</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400 hidden sm:inline">
+                <span className="font-medium text-gray-700 dark:text-gray-200">{user.analysisCount}</span>
                 /{user.analysisLimit} {t.nav.analysisQuota}
               </span>
             )}
@@ -135,7 +135,7 @@ export default function Layout() {
         </header>
 
         {/* Page content */}
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-950">
           <div className="page-enter">
             <Outlet />
           </div>

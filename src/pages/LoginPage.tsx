@@ -4,6 +4,7 @@ import { Shield, Mail, Lock, User, Eye, EyeOff, Loader2 } from 'lucide-react';
 import { useAppStore } from '@/store/appStore';
 import { useTranslation } from '@/hooks/useTranslation';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
+import DarkModeToggle from '@/components/ui/DarkModeToggle';
 import { generateId } from '@/lib/utils';
 import toast from 'react-hot-toast';
 
@@ -51,23 +52,26 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col">
       <div className="flex justify-between items-center pt-10 pb-6 px-6 max-w-md mx-auto w-full">
         <Link to="/" className="flex items-center gap-2.5">
           <div className="w-9 h-9 bg-brand-600 rounded-xl flex items-center justify-center">
             <Shield className="w-5 h-5 text-white" />
           </div>
-          <span className="font-bold text-gray-900 text-xl">{t.common.appName}</span>
+          <span className="font-bold text-gray-900 dark:text-white text-xl">{t.common.appName}</span>
         </Link>
-        <LanguageSwitcher />
+        <div className="flex items-center gap-2">
+          <DarkModeToggle />
+          <LanguageSwitcher />
+        </div>
       </div>
 
       <div className="flex-1 flex items-start justify-center px-4 pt-2">
         <div className="w-full max-w-md card p-8">
-          <h1 className="text-xl font-bold text-gray-900 mb-1">
+          <h1 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
             {mode === 'login' ? t.auth.loginTitle : t.auth.registerTitle}
           </h1>
-          <p className="text-sm text-gray-500 mb-6">
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
             {mode === 'login' ? t.auth.loginSubtitle : t.auth.registerSubtitle}
           </p>
 
@@ -122,7 +126,7 @@ export default function LoginPage() {
           </p>
         </div>
       </div>
-      <p className="text-center text-xs text-gray-400 py-6">© 2026 {t.common.appName} · {t.common.disclaimerShort}</p>
+      <p className="text-center text-xs text-gray-400 dark:text-gray-600 py-6">© 2026 {t.common.appName} · {t.common.disclaimerShort}</p>
     </div>
   );
 }

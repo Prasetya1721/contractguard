@@ -10,10 +10,10 @@ export default function ProgressBar({ step, percent, className }: ProgressBarPro
   return (
     <div className={cn('space-y-3', className)}>
       <div className="flex items-center justify-between text-sm">
-        <span className="text-gray-600">{step}</span>
-        <span className="font-semibold text-brand-600">{percent}%</span>
+        <span className="text-gray-600 dark:text-gray-300">{step}</span>
+        <span className="font-semibold text-brand-600 dark:text-brand-400">{percent}%</span>
       </div>
-      <div className="w-full h-2.5 bg-gray-200 rounded-full overflow-hidden">
+      <div className="w-full h-2.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
         <div
           className="h-full bg-brand-500 rounded-full transition-all duration-500 ease-out"
           style={{ width: `${percent}%` }}
@@ -25,7 +25,7 @@ export default function ProgressBar({ step, percent, className }: ProgressBarPro
             key={milestone}
             className={cn(
               'w-2 h-2 rounded-full transition-colors duration-300',
-              percent >= milestone ? 'bg-brand-500' : 'bg-gray-200',
+              percent >= milestone ? 'bg-brand-500' : 'bg-gray-200 dark:bg-gray-700',
             )}
           />
         ))}

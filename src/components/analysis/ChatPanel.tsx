@@ -5,6 +5,7 @@ import { useAgent } from '@/hooks/useAgent';
 import { useTranslation } from '@/hooks/useTranslation';
 import ChatBubble, { ChatScrollAnchor } from './ChatBubble';
 import type { AnalysisResult } from '@/types';
+// dark: styles applied via dark: utility classes below
 
 interface ChatPanelProps {
   analysis: AnalysisResult;
@@ -39,9 +40,9 @@ export default function ChatPanel({ analysis }: ChatPanelProps) {
 
   return (
     <>
-      <div className="fixed inset-0 z-40 bg-black/20 md:hidden" onClick={closeChat} />
+      <div className="fixed inset-0 z-40 bg-black/20 dark:bg-black/50 md:hidden" onClick={closeChat} />
       <div className={cn(
-        'fixed z-50 flex flex-col bg-white border border-gray-200 shadow-2xl transition-all duration-300',
+        'fixed z-50 flex flex-col bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700/60 shadow-2xl transition-all duration-300',
         'md:right-6 md:bottom-6 md:w-[380px] md:rounded-2xl',
         'inset-x-0 bottom-0 rounded-t-2xl md:inset-x-auto',
         minimized ? 'md:h-14' : 'h-[80vh] md:h-[600px]',
@@ -71,10 +72,10 @@ export default function ChatPanel({ analysis }: ChatPanelProps) {
         {!minimized && (
           <>
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-gray-950">
               {messages.length === 0 && (
                 <div className="space-y-3">
-                  <p className="text-xs text-gray-500 text-center">{t.agent.askAbout}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 text-center">{t.agent.askAbout}</p>
                   <div className="flex flex-wrap gap-2 justify-center">
                     {t.agent.quickStarters.map((q) => (
                       <button key={q} onClick={() => sendUserMessage(q)}
@@ -92,14 +93,14 @@ export default function ChatPanel({ analysis }: ChatPanelProps) {
             </div>
 
             {/* Disclaimer */}
-            <div className="px-3 py-1.5 bg-amber-50 border-t border-amber-100">
+            <div className="px-3 py-1.5 bg-amber-50 dark:bg-amber-900/20 border-t border-amber-100 dark:border-amber-800/40">
               <p className="text-[10px] text-amber-700 text-center leading-tight">
                 ⚠️ {t.agent.notLegalAdvice}
               </p>
             </div>
 
             {/* Input */}
-            <div className="px-3 py-3 bg-white border-t border-gray-200 rounded-b-2xl shrink-0">
+            <div className="px-3 py-3 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700/60 rounded-b-2xl shrink-0">
               <div className="flex items-end gap-2">
                 <textarea
                   ref={inputRef}

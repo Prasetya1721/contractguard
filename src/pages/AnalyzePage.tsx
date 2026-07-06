@@ -64,8 +64,8 @@ export default function AnalyzePage() {
   return (
     <div className="p-6 md:p-8 max-w-3xl mx-auto space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">{t.analyze.title}</h1>
-        <p className="text-gray-500 mt-1">{t.analyze.subtitle}</p>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t.analyze.title}</h1>
+        <p className="text-gray-500 dark:text-gray-400 mt-1">{t.analyze.subtitle}</p>
       </div>
 
       <DisclaimerBanner compact />
@@ -95,15 +95,15 @@ export default function AnalyzePage() {
       <div className="card p-6">
         {inputMode === 'file' ? (
           <div className="space-y-4">
-            <h2 className="text-sm font-semibold text-gray-700">{t.analyze.uploadTitle}</h2>
+            <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-200">{t.analyze.uploadTitle}</h2>
             <FileUploader onFileAccepted={handleFileAccepted} disabled={isAnalyzing} />
             {selectedFile && <p className="text-xs text-green-600 font-medium">{t.analyze.fileReady(selectedFile.name)}</p>}
           </div>
         ) : (
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <h2 className="text-sm font-semibold text-gray-700">{t.analyze.pasteLabel}</h2>
-              <span className="text-xs text-gray-400">{pastedText.length} {t.analyze.chars}</span>
+              <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-200">{t.analyze.pasteLabel}</h2>
+              <span className="text-xs text-gray-400 dark:text-gray-500">{pastedText.length} {t.analyze.chars}</span>
             </div>
             <textarea
               className="input min-h-[280px] resize-y font-mono text-xs leading-relaxed"
@@ -120,8 +120,8 @@ export default function AnalyzePage() {
       {isAnalyzing && (
         <div className="card p-6">
           <div className="flex items-center gap-3 mb-5">
-            <Loader2 className="w-5 h-5 animate-spin text-brand-600" />
-            <p className="font-medium text-gray-900">{t.analyze.analyzingTitle}</p>
+            <Loader2 className="w-5 h-5 animate-spin text-brand-500" />
+            <p className="font-medium text-gray-900 dark:text-white">{t.analyze.analyzingTitle}</p>
           </div>
           <ProgressBar step={progressStep} percent={progressPercent} />
         </div>

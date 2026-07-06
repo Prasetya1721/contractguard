@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Upload, FileText, BarChart3, ArrowRight, Clock, AlertTriangle } from 'lucide-react';
 import { useAppStore } from '@/store/appStore';
 import { useTranslation } from '@/hooks/useTranslation';
+// dark: variants inherited from .card, .btn-* via index.css
 import { formatDateShort } from '@/lib/utils';
 import { RISK_LEVEL_CONFIG } from '@/types';
 import { cn } from '@/lib/utils';
@@ -20,10 +21,10 @@ export default function DashboardPage() {
   return (
     <div className="p-6 md:p-8 max-w-5xl mx-auto space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
           {t.dashboard.welcome} {user?.name?.split(' ')[0]} 👋
         </h1>
-        <p className="text-gray-500 mt-1">{t.dashboard.subtitle}</p>
+        <p className="text-gray-500 dark:text-gray-400 mt-1">{t.dashboard.subtitle}</p>
       </div>
 
       {/* Stats */}
@@ -46,7 +47,7 @@ export default function DashboardPage() {
       </div>
 
       {/* CTA */}
-      <div className="card p-6 bg-gradient-to-br from-brand-600 to-brand-800 text-white">
+      <div className="card p-6 bg-gradient-to-br from-brand-700 to-brand-900 text-white">
         <div className="flex items-start justify-between gap-4">
           <div>
             <h2 className="text-lg font-bold mb-1">{t.dashboard.ctaTitle}</h2>
@@ -68,7 +69,7 @@ export default function DashboardPage() {
       {/* Recent history */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-base font-semibold text-gray-900 flex items-center gap-2">
+          <h2 className="text-base font-semibold text-gray-900 dark:text-white flex items-center gap-2">
             <Clock className="w-4 h-4 text-gray-400" />
             {t.dashboard.recentTitle}
           </h2>
@@ -84,8 +85,8 @@ export default function DashboardPage() {
             <div className="w-14 h-14 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-3">
               <FileText className="w-7 h-7 text-gray-400" />
             </div>
-            <p className="text-gray-600 font-medium mb-1">{t.dashboard.emptyTitle}</p>
-            <p className="text-sm text-gray-500 mb-4">{t.dashboard.emptySubtitle}</p>
+            <p className="text-gray-600 dark:text-gray-300 font-medium mb-1">{t.dashboard.emptyTitle}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{t.dashboard.emptySubtitle}</p>
             <Link to="/app/analyze" className="btn-primary">
               <Upload className="w-4 h-4" />
               {t.dashboard.analyzeNow}
@@ -101,8 +102,8 @@ export default function DashboardPage() {
                     <FileText className={cn('w-5 h-5', config.color)} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 truncate">{item.documentName}</p>
-                    <p className="text-xs text-gray-500 mt-0.5">
+                    <p className="text-sm font-medium text-gray-900 dark:text-white truncate">{item.documentName}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                       {formatDateShort(new Date(item.analysisDate))} · {t.dashboard.flaggedClauses(item.flaggedClauses)}
                     </p>
                   </div>

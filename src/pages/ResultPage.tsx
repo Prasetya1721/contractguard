@@ -90,8 +90,8 @@ export default function ResultPage() {
             <FileText className="w-6 h-6 text-brand-600" />
           </div>
           <div className="flex-1 min-w-0">
-            <h1 className="text-base font-semibold text-gray-900 truncate">{result.documentName}</h1>
-            <div className="flex flex-wrap gap-3 mt-2 text-xs text-gray-500">
+            <h1 className="text-base font-semibold text-gray-900 dark:text-white truncate">{result.documentName}</h1>
+            <div className="flex flex-wrap gap-3 mt-2 text-xs text-gray-500 dark:text-gray-400">
               <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{formatDate(new Date(result.analysisDate))}</span>
               <span>{formatFileSize(result.documentSize)}</span>
               <span className="flex items-center gap-1"><Cpu className="w-3 h-3" />{t.result.processTime((result.processingTimeMs / 1000).toFixed(1))}</span>
@@ -106,14 +106,14 @@ export default function ResultPage() {
 
       {/* Ringkasan */}
       <div className="card p-5">
-        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">{t.result.executiveSummary}</h2>
-        <p className="text-sm text-gray-700 leading-relaxed">{result.summary}</p>
+        <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">{t.result.executiveSummary}</h2>
+        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{result.summary}</p>
       </div>
 
       {/* Distribusi */}
       {result.riskFlags.length > 0 && (
         <div className="card p-5">
-          <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">{t.result.riskDistribution}</h2>
+          <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-4">{t.result.riskDistribution}</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {distribution.map(({ level, count, config }) => (
               <div key={level} className={cn('p-3 rounded-lg border text-center', config.bgColor, config.borderColor)}>
@@ -129,7 +129,7 @@ export default function ResultPage() {
       {result.riskFlags.length > 0 ? (
         <div className="space-y-4">
           <div className="flex items-center justify-between flex-wrap gap-3">
-            <h2 className="font-semibold text-gray-900">{t.result.flaggedClauses(filteredFlags.length)}</h2>
+            <h2 className="font-semibold text-gray-900 dark:text-white">{t.result.flaggedClauses(filteredFlags.length)}</h2>
             <div className="flex items-center gap-2 flex-wrap">
               <Filter className="w-3.5 h-3.5 text-gray-400" />
               {RISK_FILTER_OPTIONS.map(({ value, label }) => (

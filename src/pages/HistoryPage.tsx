@@ -33,8 +33,8 @@ export default function HistoryPage() {
     <div className="p-6 md:p-8 max-w-4xl mx-auto space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">{t.history.title}</h1>
-          <p className="text-gray-500 text-sm mt-1">{t.history.subtitle(history.length)}</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t.history.title}</h1>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">{t.history.subtitle(history.length)}</p>
         </div>
         {history.length > 0 && (
           <button
@@ -57,8 +57,8 @@ export default function HistoryPage() {
       {history.length === 0 ? (
         <div className="card p-10 text-center">
           <FileText className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-          <p className="text-gray-600 font-medium mb-1">{t.history.emptyTitle}</p>
-          <p className="text-sm text-gray-500 mb-4">{t.history.emptySubtitle}</p>
+          <p className="text-gray-600 dark:text-gray-300 font-medium mb-1">{t.history.emptyTitle}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{t.history.emptySubtitle}</p>
           <Link to="/app/analyze" className="btn-primary">{t.history.newAnalysis}</Link>
         </div>
       ) : filtered.length === 0 ? (
@@ -76,8 +76,8 @@ export default function HistoryPage() {
                   <FileText className={cn('w-5 h-5', config.color)} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-900 truncate">{item.documentName}</p>
-                  <div className="flex flex-wrap gap-2 mt-1 text-xs text-gray-500">
+                  <p className="text-sm font-medium text-gray-900 dark:text-white truncate">{item.documentName}</p>
+                  <div className="flex flex-wrap gap-2 mt-1 text-xs text-gray-500 dark:text-gray-400">
                     <span>{formatDateShort(new Date(item.analysisDate))}</span>
                     <span>·</span>
                     <span>{formatFileSize(item.documentSize)}</span>

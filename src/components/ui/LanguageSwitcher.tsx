@@ -12,7 +12,7 @@ export default function LanguageSwitcher({ className, compact }: LanguageSwitche
   const locales = Object.entries(LOCALE_LABELS) as [Locale, { label: string; flag: string }][];
 
   return (
-    <div className={cn('flex items-center gap-1 p-1 bg-gray-100 rounded-lg', className)}>
+    <div className={cn('flex items-center gap-1 p-1 bg-gray-100 dark:bg-gray-800 rounded-lg', className)}>
       {locales.map(([key, { label, flag }]) => (
         <button
           key={key}
@@ -21,8 +21,8 @@ export default function LanguageSwitcher({ className, compact }: LanguageSwitche
           className={cn(
             'flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-semibold transition-all',
             locale === key
-              ? 'bg-white text-gray-900 shadow-sm'
-              : 'text-gray-500 hover:text-gray-800',
+              ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
+              : 'text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-white',
           )}
         >
           <span className="text-sm leading-none">{flag}</span>

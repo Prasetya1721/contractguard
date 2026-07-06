@@ -4,6 +4,16 @@ import type { AnalysisResult, User, UploadStatus } from '@/types';
 import type { ChatMessage } from '@/lib/agentService';
 import { type Locale, detectLocale } from '@/i18n';
 
+/** Apply/remove the `dark` class on <html> and update color-scheme */
+export function applyDarkMode(dark: boolean) {
+  const root = document.documentElement;
+  if (dark) {
+    root.classList.add('dark');
+  } else {
+    root.classList.remove('dark');
+  }
+}
+
 interface AppState {
   // Auth
   user: User | null;
@@ -24,6 +34,11 @@ interface AppState {
   // UI
   sidebarOpen: boolean;
   toggleSidebar: () => void;
+
+  // Dark Mode
+  darkMode: boolean;
+  toggleDarkMode: () => void;
+  setDarkMode: (dark: boolean) => void;
 
   // Locale / Language
   locale: Locale;
@@ -67,6 +82,19 @@ export const useAppStore = create<AppState>()(
       locale: detectLocale(),
       setLocale: (locale) => set({ locale }),
 
+      // Dark Mode
+      darkMode: false,
+      toggleDarkMode: () =>
+        set((state) => {
+          const next = !state.darkMode;
+          applyDarkMode(next);
+          return { darkMode: next };
+        }),
+      setDarkMode: (dark: boolean) => {
+        applyDarkMode(dark);
+        set({ darkMode: dark });
+      },
+
       // UI
       sidebarOpen: false,
       toggleSidebar: () => set((state) => ({ sidebarOpen: !state.sidebarOpen })),
@@ -105,6 +133,7 @@ export const useAppStore = create<AppState>()(
         history: state.history,
         chatSessions: state.chatSessions,
         locale: state.locale,
+        darkMode: state.darkMode,
       }),
     },
   ),
