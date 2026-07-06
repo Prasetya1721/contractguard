@@ -2,22 +2,25 @@ import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { Shield, LayoutDashboard, Upload, History, LogOut, Menu, X, ChevronRight, Bot } from 'lucide-react';
 import { useAppStore } from '@/store/appStore';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/useTranslation';
+import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
 import toast from 'react-hot-toast';
-
-const NAV_ITEMS = [
-  { to: '/app', icon: LayoutDashboard, label: 'Dashboard', exact: true },
-  { to: '/app/analyze', icon: Upload, label: 'Analisis Kontrak' },
-  { to: '/app/history', icon: History, label: 'Riwayat Analisis' },
-];
 
 export default function Layout() {
   const { user, setUser, toggleSidebar, sidebarOpen } = useAppStore();
+  const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
 
+  const NAV_ITEMS = [
+    { to: '/app',          icon: LayoutDashboard, label: t.nav.dashboard,  exact: true },
+    { to: '/app/analyze',  icon: Upload,          label: t.nav.analyze },
+    { to: '/app/history',  icon: History,         label: t.nav.history },
+  ];
+
   const handleLogout = () => {
     setUser(null);
-    toast.success('Berhasil keluar.');
+    toast.success(t.auth.logoutSuccess);
     navigate('/');
   };
 
@@ -47,7 +50,7 @@ export default function Layout() {
           <div className="flex items-center justify-center w-9 h-9 bg-brand-500 rounded-lg">
             <Shield className="w-5 h-5" />
           </div>
-          <span className="font-bold text-lg tracking-tight">ContractGuard</span>
+          <span className="font-bold text-lg tracking-tight">{t.common.appName}</span>
           <button className="ml-auto lg:hidden" onClick={toggleSidebar}>
             <X className="w-5 h-5 text-brand-300" />
           </button>
@@ -78,11 +81,9 @@ export default function Layout() {
         <div className="mx-3 mb-2 px-3 py-2.5 bg-brand-800 rounded-lg border border-brand-700">
           <div className="flex items-center gap-2 mb-1">
             <Bot className="w-3.5 h-3.5 text-brand-300" />
-            <span className="text-xs font-semibold text-brand-200">AI Agent Aktif</span>
+            <span className="text-xs font-semibold text-brand-200">{t.nav.aiAgentActive}</span>
           </div>
-          <p className="text-[11px] text-brand-400 leading-tight">
-            Buka hasil analisis dan klik "Tanya AI" untuk konsultasi kontrak.
-          </p>
+          <p className="text-[11px] text-brand-400 leading-tight">{t.nav.aiAgentHint}</p>
         </div>
 
         {/* User info */}
@@ -92,7 +93,7 @@ export default function Layout() {
               {user?.name?.charAt(0).toUpperCase() ?? 'U'}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium truncate">{user?.name ?? 'Pengguna'}</p>
+              <p className="text-sm font-medium truncate">{user?.name ?? 'User'}</p>
               <p className="text-xs text-brand-300 truncate">{user?.email}</p>
             </div>
           </div>
@@ -101,7 +102,7 @@ export default function Layout() {
             className="flex items-center gap-2 w-full px-3 py-2 rounded-lg text-sm text-brand-300 hover:bg-brand-800 hover:text-white transition-colors"
           >
             <LogOut className="w-4 h-4" />
-            Keluar
+            {t.nav.logout}
           </button>
         </div>
       </aside>
@@ -109,7 +110,7 @@ export default function Layout() {
       {/* ── Main content ─────────────────────────────────────────────────────── */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Top bar */}
-        <header className="flex items-center gap-4 px-6 py-4 bg-white border-b border-gray-200 lg:px-8">
+        <header className="flex items-center gap-4 px-6 py-3 bg-white border-b border-gray-200 lg:px-8">
           <button
             className="lg:hidden p-1 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100"
             onClick={toggleSidebar}
@@ -117,14 +118,18 @@ export default function Layout() {
             <Menu className="w-5 h-5" />
           </button>
           <div className="text-sm text-gray-500">
-            Paket:{' '}
+            {t.nav.plan}:{' '}
             <span className="font-semibold text-brand-600 capitalize">{user?.plan ?? 'free'}</span>
           </div>
-          <div className="ml-auto text-sm text-gray-500">
+          <div className="ml-auto flex items-center gap-4">
+            {/* Language Switcher */}
+            <LanguageSwitcher />
+            {/* Quota */}
             {user && (
-              <>
-                <span className="font-medium text-gray-700">{user.analysisCount}</span>/{user.analysisLimit} analisis
-              </>
+              <span className="text-sm text-gray-500">
+                <span className="font-medium text-gray-700">{user.analysisCount}</span>
+                /{user.analysisLimit} {t.nav.analysisQuota}
+              </span>
             )}
           </div>
         </header>

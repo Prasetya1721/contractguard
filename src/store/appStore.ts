@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { AnalysisResult, User, UploadStatus } from '@/types';
 import type { ChatMessage } from '@/lib/agentService';
+import { type Locale, detectLocale } from '@/i18n';
 
 interface AppState {
   // Auth
@@ -23,6 +24,10 @@ interface AppState {
   // UI
   sidebarOpen: boolean;
   toggleSidebar: () => void;
+
+  // Locale / Language
+  locale: Locale;
+  setLocale: (locale: Locale) => void;
 
   // AI Chat — per analisis (key = analysisId)
   chatSessions: Record<string, ChatMessage[]>;
@@ -57,6 +62,10 @@ export const useAppStore = create<AppState>()(
           history: state.history.filter((item) => item.id !== id),
         })),
       clearHistory: () => set({ history: [] }),
+
+      // Locale
+      locale: detectLocale(),
+      setLocale: (locale) => set({ locale }),
 
       // UI
       sidebarOpen: false,
@@ -95,6 +104,7 @@ export const useAppStore = create<AppState>()(
         user: state.user,
         history: state.history,
         chatSessions: state.chatSessions,
+        locale: state.locale,
       }),
     },
   ),
