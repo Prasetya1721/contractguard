@@ -4,44 +4,6 @@ import { useTranslation } from '@/hooks/useTranslation';
 import DarkModeToggle from '@/components/ui/DarkModeToggle';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
 
-const FEATURES = [
-  {
-    icon: Zap,
-    title: 'Analisis Instan',
-    desc: 'Upload kontrak PDF/DOCX dan dapatkan hasil analisis risiko dalam hitungan detik.',
-  },
-  {
-    icon: BarChart3,
-    title: 'Skor Risiko Visual',
-    desc: 'Skor risiko keseluruhan dan per klausul dengan visualisasi yang mudah dipahami.',
-  },
-  {
-    icon: FileText,
-    title: 'Rekomendasi Konkret',
-    desc: 'Setiap klausul berisiko dilengkapi penjelasan dan contoh bahasa alternatif yang lebih aman.',
-  },
-  {
-    icon: Download,
-    title: 'Ekspor Laporan PDF',
-    desc: 'Unduh laporan hasil analisis lengkap dalam format PDF untuk dibagikan ke tim atau pengacara.',
-  },
-  {
-    icon: Lock,
-    title: 'Keamanan Data',
-    desc: 'Dokumen Anda diproses dengan enkripsi end-to-end dan tidak disimpan permanen tanpa izin.',
-  },
-  {
-    icon: CheckCircle,
-    title: 'Rule Engine Tervalidasi',
-    desc: 'Basis aturan hukum yang dikurasi dari checklist klausul berisiko yang umum di Indonesia.',
-  },
-];
-
-const CONTRACT_TYPES = [
-  'Perjanjian Kerja', 'NDA', 'Perjanjian Sewa', 'Perjanjian Jual-Beli',
-  'Kontrak Vendor', 'Perjanjian Kemitraan', 'Kontrak Freelance', 'SLA',
-];
-
 export default function LandingPage() {
   const { t } = useTranslation();
   const FEATURES = [
@@ -174,7 +136,8 @@ export default function LandingPage() {
                   {t.landing.startNow}
                 </Link>
               </div>
-            ))}
+            );
+          })}
           </div>
         </div>
       </section>

@@ -270,7 +270,7 @@ const id = {
     buildReport: 'Menyusun laporan hasil analisis...',
     done: 'Analisis selesai!',
   },
-} as const;
+};
 
 export default id;
 export type Translations = typeof id;

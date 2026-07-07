@@ -1,4 +1,5 @@
 import * as pdfjsLib from 'pdfjs-dist';
+import type { TextItem } from 'pdfjs-dist/types/src/display/api';
 import mammoth from 'mammoth';
 
 // Setup PDF.js worker
@@ -19,7 +20,7 @@ export async function extractTextFromPDF(file: File): Promise<string> {
     const page = await pdf.getPage(i);
     const textContent = await page.getTextContent();
     const pageText = textContent.items
-      .filter((item): item is pdfjsLib.TextItem => 'str' in item)
+      .filter((item): item is TextItem => 'str' in item)
       .map((item) => item.str)
       .join(' ');
     textPages.push(pageText);
